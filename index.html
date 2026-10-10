@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
 :root{
   --bg:#06060b; --bg2:#0b0b14; --panel:#101018;
@@ -16,7 +19,6 @@
   --font:'Space Grotesk',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:hidden}
 ::selection{background:var(--magenta);color:#fff}
 ::-webkit-scrollbar{width:10px}
@@ -164,10 +166,13 @@ footer .heart{color:var(--magenta)}
 
 /* broken-image fallback: hide img, keep gradient */
 img.broken{display:none}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--amber))}
 </style>
 </head>
 <body>
 
+<div id="progress"></div>
 <nav>
   <a class="logo" href="#hero">SHRIKAR<span>.DEV</span></a>
   <div class="navlinks">
@@ -176,6 +181,8 @@ img.broken{display:none}
     <a href="#experience">Experience</a>
     <a href="#gallery">Life</a>
     <a href="#reel">Reel</a>
+    <a href="#vault">Vault</a>
+    <a href="#trophies">Trophies</a>
     <a class="hire" href="#contact">Hire me</a>
   </div>
 </nav>
@@ -185,7 +192,7 @@ img.broken{display:none}
   <div class="hero-inner">
     <div class="kicker">// hello world, I'm</div>
     <h1>SHRIKAR <span class="grad">SWAMI</span></h1>
-    <p class="tagline">CS @ Stevens. I build <b>robots that think</b> — swarm intelligence, humanoids that play goalie, and a self-hosted AI mesh that runs my life.</p>
+    <p class="tagline">CS @ Stevens. I build <b>robots that think</b> — computer vision, humanoids that play goalie, and a self-hosted AI mesh that runs my life.</p>
     <div class="cta">
       <a class="btn btn-solid" href="#projects">See my builds</a>
       <a class="btn btn-ghost" href="#contact">Get in touch</a>
@@ -208,7 +215,7 @@ img.broken{display:none}
     </div>
     <div class="about-copy rv">
       <p>I'm a second-year CS student at <b>Stevens Institute of Technology</b> (Quantitative Finance minor) who treats curiosity as a system requirement. I fell into CS because it's the closest thing to a superpower: <b>take in tons of sensor data, make quick smart decisions, and ship things people actually use.</b></p>
-      <p>By day I've done AI research on <b>counter-drone swarm interception</b> at a defense contractor and built <b>VR teleoperation for a 29-DOF humanoid</b>. By night I run <b>SLHJ</b>, a self-hosted AI mesh across a Jetson AGX Thor, my PCs, and my Mac — with a 32B-parameter LLM that lives entirely on my own hardware.</p>
+      <p>By day I've done AI research at a defense contractor and built <b>VR teleoperation for a 29-DOF humanoid</b>. By night I run <b>SLHJ</b>, a self-hosted AI mesh across a Jetson AGX Thor, my PCs, and my Mac — with a 32B-parameter LLM that lives entirely on my own hardware.</p>
       <p>When a problem grabs me, I <b>hyperfixate until it's solved</b> — 4am sessions included. The previous intern spent four weeks stuck on a teleop bug; I hit the same bug and rebuilt the whole stack in three days.</p>
       <div class="chips">
         <span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">YOLOv8 + TensorRT</span>
@@ -218,7 +225,7 @@ img.broken{display:none}
     </div>
   </div>
   <div class="stats rv" style="margin-top:56px">
-    <div class="stat"><div class="num" data-count="97.9" data-dec="1">0</div><div class="lbl">% drone detection accuracy<br>multi-view swarm pipeline</div></div>
+    <div class="stat"><div class="num" data-count="29">0</div><div class="lbl">DOF humanoid<br>teleoperated in VR</div></div>
     <div class="stat"><div class="num" data-count="3.1" data-dec="1">0</div><div class="lbl">cm median position precision<br>GPS-denied reconstruction</div></div>
     <div class="stat"><div class="num" data-count="12">0</div><div class="lbl">researchers led<br>as SAIRG research lead</div></div>
     <div class="stat"><div class="num" data-count="120">0</div><div class="lbl">+ hours building<br>self-hosted AI mesh</div></div>
@@ -233,10 +240,10 @@ img.broken{display:none}
   </div>
   <div class="proj-grid">
     <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Robotics</span><div class="ph-label">OTTO PHOTO</div><img data-src="assets/otto.jpg" alt="Project OTTO"></div>
+      <div class="proj-img"><span class="proj-tag">Robotics</span><img data-src="assets/otto/otto-vr-teleop.jpg" alt="Shrikar teleoperating OTTO with a VR headset"></div>
       <div class="proj-body">
         <h3>Project OTTO — Robot Goalkeeper</h3>
-        <p>Autonomous soccer goalkeeper for a Unitree G1 humanoid. Pure-TensorRT YOLOv8s ball detection, finite-state-machine dive controller, deployed in Washington Square Park against real human shooters.</p>
+        <p>Autonomous soccer goalkeeper for a Unitree G1 humanoid. Pure-TensorRT YOLOv8s ball detection, finite-state-machine dive controller, deployed in Washington Square Park against real human shooters. Plus a full VR teleoperation stack — me in a Quest 3, OTTO mirroring every move.</p>
         <div class="proj-meta"><span class="award">★ Deployed IRL</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
       </div>
     </div>
@@ -246,14 +253,6 @@ img.broken{display:none}
         <h3>SLHJ — Self-Hosted AI Mesh</h3>
         <p>Multi-node personal AI mesh across Jetson AGX Thor, PCs, and Macs over Tailscale. Capability-based routing, Telegram operator loop, SQLite memory graph, and a 32B LLM served locally via Ollama. 120+ hours and counting.</p>
         <div class="proj-meta"><span class="award">★ 4am sessions included</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
-      </div>
-    </div>
-    <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Defense AI</span><img data-src="https://i.ytimg.com/vi/Wh7HW_ErBg8/hqdefault.jpg" alt="Drone swarm defense explainer"></div>
-      <div class="proj-body">
-        <h3>Counter-UAS Swarm Reconstruction</h3>
-        <p>Multi-view ML pipeline reconstructing hostile 3D drone-swarm topologies from 2–6 camera feeds. 97.9% detection accuracy, 3.1&nbsp;cm median precision — no GPS. GA/PSO critical-node targeting fragments 65-drone swarms.</p>
-        <div class="proj-meta"><span class="award">★ AuresTech R&amp;D</span><span style="color:var(--muted)">Private repo</span></div>
       </div>
     </div>
     <div class="proj rv">
@@ -281,6 +280,32 @@ img.broken{display:none}
       </div>
     </div>
   </div>
+  <div class="rv" style="margin-top:56px">
+    <div class="sec-title" style="font-size:clamp(1.5rem,3.5vw,2.2rem)">OTTO in action. <span class="grad">Me in the loop.</span></div>
+    <p class="sec-sub">VR teleoperation at Enver Studios — Quest 3 on my head, G1 mirroring every move.</p>
+  </div>
+  <style>
+    .otto-vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+    .otto-vid{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.07);
+      background:var(--panel);transition:transform .3s,border-color .3s}
+    .otto-vid:hover{transform:translateY(-6px);border-color:rgba(0,240,255,.4)}
+    .otto-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
+    .otto-vid .t-cap{padding:14px 18px;font-size:.85rem;color:var(--muted);font-family:var(--mono)}
+  </style>
+  <div class="otto-vids">
+    <div class="otto-vid rv">
+      <video controls preload="metadata" poster="assets/otto/otto-vr-teleop.jpg"><source src="assets/otto/otto-teleop-1.mp4" type="video/mp4"></video>
+      <div class="t-cap">TELEOP SESSION · ENVER STUDIOS</div>
+    </div>
+    <div class="otto-vid rv">
+      <video controls preload="metadata"><source src="assets/otto/otto-teleop-2.mp4" type="video/mp4"></video>
+      <div class="t-cap">MIRRORING · ENVER STUDIOS</div>
+    </div>
+    <div class="otto-vid rv">
+      <video controls preload="metadata"><source src="assets/otto/otto-teleop-3.mp4" type="video/mp4"></video>
+      <div class="t-cap">LIVE CONTROL · ENVER STUDIOS</div>
+    </div>
+  </div>
 </section>
 
 <section id="experience">
@@ -291,13 +316,13 @@ img.broken{display:none}
   </div>
   <div class="timeline">
     <div class="t-item rv">
-      <div class="t-role">AI Research Intern — Counter-UAS &amp; Swarm Intercept</div>
+      <div class="t-role">AI Research Intern</div>
       <div class="t-co">AuresTech Inc. · Bridgewater, NJ</div>
       <div class="t-date">JUN 2026 — OCT 2026</div>
       <ul>
-        <li>Engineered a <b>multi-view ML vision pipeline</b> reconstructing hostile 3D UAV swarm topologies from camera arrays: <b>97.9% detection accuracy</b>, <b>3.1 cm median precision</b>, zero GPS.</li>
-        <li>Fused 3D adjacency graphs with <b>genetic algorithm + particle swarm optimization</b> to identify gateway hubs and fragment 65-drone swarms.</li>
-        <li>Built a decentralized swarm network-disruption testbed in <b>CORE + EMANE</b>; root-caused 80–90% reachability loss to an <b>OSPF6 adjacency bug</b>.</li>
+        <li>Engineered a <b>multi-view ML vision pipeline</b> reconstructing 3D topologies from camera arrays: <b>97.9% detection accuracy</b>, <b>3.1 cm median precision</b>, zero GPS.</li>
+        <li>Fused 3D adjacency graphs with <b>genetic algorithms + particle swarm optimization</b> to identify critical network nodes.</li>
+        <li>Built a decentralized network testbed in <b>CORE + EMANE</b>; root-caused 80–90% reachability loss to an <b>OSPF6 adjacency bug</b>.</li>
       </ul>
     </div>
     <div class="t-item rv">
@@ -330,7 +355,11 @@ img.broken{display:none}
     <p class="sec-sub">Lab demos, hackathons, and everything in between.</p>
   </div>
   <div class="g-strip rv" id="gstrip">
-    <div class="g-item"><img data-src="assets/gallery-candid.jpg" alt="Shrikar with friends"></div>
+    <div class="g-item"><img data-src="assets/me-smile.jpg" alt="Shrikar smiling at an event"></div>
+    <div class="g-item"><img data-src="assets/me-hackathon.jpg" alt="Shrikar at the Stevens Business + AI Hackathon"></div>
+    <div class="g-item"><img data-src="assets/me-street.jpg" alt="Shrikar in the city"></div>
+    <div class="g-item"><img data-src="assets/me-wall.jpg" alt="Shrikar portrait"></div>
+    <div class="g-item" style="aspect-ratio:16/10"><img data-src="assets/me-expo.jpg" alt="Shrikar presenting SimplyPark at the Stevens expo"></div>
     <div class="g-item"><img data-src="assets/paddle-demo.jpg" alt="Paddle detection drone demo"></div>
     <div class="g-item"><img data-src="assets/lego-avatar.jpg" alt="Lego minifigure avatar"></div>
     <div class="g-item" style="aspect-ratio:16/10">
@@ -361,10 +390,6 @@ img.broken{display:none}
   </style>
   <div class="reel-grid">
     <div class="reel-item rv">
-      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Wh7HW_ErBg8" title="Solving the Missing Piece in Drone Swarm Defense" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="reel-cap">Solving the Missing Piece in Drone Swarm Defense<span>COUNTER-UAS EXPLAINER · 4:51</span></div>
-    </div>
-    <div class="reel-item rv">
       <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/-O5mWXlSM4k" title="Trust in the Hiring Funnel — NYU Hackathon" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
       <div class="reel-cap">fakeblock — Trust in the Hiring Funnel<span>NYU HACKATHON · BEST PITCH · 1:48</span></div>
     </div>
@@ -379,9 +404,171 @@ img.broken{display:none}
   </div>
 </section>
 
+<section id="vault">
+  <div class="rv">
+    <div class="sec-label">06 — The Vault</div>
+    <div class="sec-title">Every repo. <span class="grad">No filler.</span></div>
+    <p class="sec-sub">The full public archive — hackathons, robots, CV experiments, coursework, and beautiful nonsense. Updated automatically.</p>
+  </div>
+  <style>
+    .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    .repo{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:14px;
+      padding:18px 20px;transition:transform .25s,border-color .25s}
+    .repo:hover{border-color:rgba(182,255,46,.45);transform:translateY(-4px)}
+    .repo h4{font-size:.95rem;margin-bottom:6px;font-family:var(--mono);font-weight:500}
+    .repo h4 a{color:var(--cyan)}
+    .repo h4 a:hover{text-decoration:underline}
+    .repo p{color:var(--muted);font-size:.84rem;line-height:1.6;margin-bottom:10px;min-height:2.6em}
+    .lang{font-family:var(--mono);font-size:.7rem;color:var(--lime);letter-spacing:.08em;text-transform:uppercase}
+  </style>
+  <div class="repo-grid rv">
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Sift" target="_blank" rel="noopener">Sift</a></h4><p>Tool for businesses to rank clients off prior history.</p><span class="lang">JavaScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/trust-in-the-hiring-funnel-hackathon-nyu" target="_blank" rel="noopener">fakeblock</a></h4><p>Outlook add-in flagging fake recruiter emails. Best Pitch @ NYU.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/AR_Problem_Solver" target="_blank" rel="noopener">AR Problem Solver</a></h4><p>iOS app solving problems through Meta Wearables DAT glasses.</p><span class="lang">Swift</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Mozzi" target="_blank" rel="noopener">Mozzi</a></h4><p>Cinematic temporal-tracker HUD over live Apple Maps satellite.</p><span class="lang">Swift</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/soccer-ball-detector" target="_blank" rel="noopener">soccer-ball-detector</a></h4><p>OTTO ball vision + goalkeeper FSM for the Unitree G1.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/otto-dance-pipeline" target="_blank" rel="noopener">otto-dance-pipeline</a></h4><p>TikTok → Unitree G1 dance motion pipeline.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/otto-minecraft" target="_blank" rel="noopener">otto-minecraft</a></h4><p>OTTO scaffolding: robot × Minecraft experiments.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/face_id" target="_blank" rel="noopener">face_id</a></h4><p>Few-shot face verification library.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/BitCamp-2026" target="_blank" rel="noopener">BitCamp-2026</a></h4><p>Civic traffic-safety intelligence from police reports.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/DuckTown" target="_blank" rel="noopener">DuckTown</a></h4><p>2D Godot social sandbox: convince the mayor, mind the rumors.</p><span class="lang">GDScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/GYMBRO-AI-DigitalOcean-X-MLH-Hackathon-2nd-Place" target="_blank" rel="noopener">GymBro AI</a></h4><p>MediaPipe pose tracking + voice coaching gym partner. 2nd place.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/stop-super-speeders-hackathon-Shrikar" target="_blank" rel="noopener">SuperSpeeders</a></h4><p>Public-transit alert system for NY DMVs. 1st place.</p><span class="lang">Jupyter</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Pressures" target="_blank" rel="noopener">Pressures</a></h4><p>Interactive experience on men's mental health pressures.</p><span class="lang">JavaScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/MonkeyVision" target="_blank" rel="noopener">MonkeyVision</a></h4><p>Realtime Mac webcam hand + face gesture detection.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Rock-Paper-Scissors" target="_blank" rel="noopener">Rock-Paper-Scissors</a></h4><p>Webcam RPS with OpenCV hand tracking.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/NicheApple" target="_blank" rel="noopener">NicheApple</a></h4><p>Realtime webcam app with MediaPipe + OpenCV.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Glasses-Identifiers" target="_blank" rel="noopener">Glasses-Identifiers</a></h4><p>Realtime webcam app that identifies glasses on people.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/67-Detector" target="_blank" rel="noopener">67-Detector</a></h4><p>Motion-activated 6-7 meme detector. Music, flashes, chaos.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/SwampIzzoSoundboard" target="_blank" rel="noopener">SwampIzzoSoundboard</a></h4><p>A soundboard of beautiful nonsense.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Chest-Controller" target="_blank" rel="noopener">Chest-Controller</a></h4><p>Bored of Crossy Road with fingers? Now play with your chest.</p><span class="lang">—</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Crossy-Road-Jumps" target="_blank" rel="noopener">Crossy-Road-Jumps</a></h4><p>Chicken-crossing experiments.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/dementia-memory-assistant" target="_blank" rel="noopener">dementia-memory-assistant</a></h4><p>Memory assistance experiments.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Hack-with-MLH-and-DigitalOcean-NYC" target="_blank" rel="noopener">MLH × DigitalOcean NYC</a></h4><p>Custom CV pipeline with pose estimation.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/mobile" target="_blank" rel="noopener">mobile</a></h4><p>Mobile experiments.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/CS-284" target="_blank" rel="noopener">CS-284</a></h4><p>Coursework: data structures in Java.</p><span class="lang">Java</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/CS115-Programming-Assignments" target="_blank" rel="noopener">CS-115</a></h4><p>Intro CS coursework in Python.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/shrikarswami.com" target="_blank" rel="noopener">shrikarswami.com</a></h4><p>This site. You're looking at it.</p><span class="lang">HTML</span></div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="rv">
+    <div class="sec-label">07 — Beyond Code</div>
+    <div class="sec-title">Not everything <span class="grad">compiles.</span></div>
+    <p class="sec-sub">The other obsessions.</p>
+  </div>
+  <style>
+    .beyond-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+    .beyond{background:linear-gradient(160deg,var(--panel),#0c0c16);border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;padding:34px 30px;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
+    .beyond:hover{transform:translateY(-6px);border-color:rgba(255,176,46,.5)}
+    .beyond .emoji{font-size:2.4rem;margin-bottom:16px}
+    .beyond h3{font-size:1.3rem;margin-bottom:10px}
+    .beyond p{color:var(--muted);line-height:1.7;font-size:.95rem}
+  </style>
+  <div class="beyond-grid">
+    <div class="beyond rv">
+      <div class="emoji">🧊</div>
+      <h3>3D Modeling</h3>
+      <p>Blender builds, from Smiskis to whatever I'm hyperfixating on this week. Timelapses live on my YouTube — more dropping soon.</p>
+    </div>
+    <div class="beyond rv">
+      <div class="emoji">🎬</div>
+      <h3>Video Editing</h3>
+      <p>Short films, hackathon recaps, and demos. I shoot, cut, and ship — the demo reel above is just the start.</p>
+    </div>
+    <div class="beyond rv">
+      <div class="emoji">🧱</div>
+      <h3>Lego Collection</h3>
+      <p>A serious collection, catalogued with the same energy I bring to code. My avatar is a minifig in a suit. That tells you everything.</p>
+    </div>
+  </div>
+</section>
+
+<section id="trophies">
+  <div class="rv">
+    <div class="sec-label">08 — Trophy Wall</div>
+    <div class="sec-title">I don't just build. <span class="grad">I win.</span></div>
+    <p class="sec-sub">Hackathons, symposiums, and expos — receipts included.</p>
+  </div>
+  <style>
+    .trophy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+    .trophy{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:18px;
+      overflow:hidden;transition:transform .3s,border-color .3s}
+    .trophy:hover{transform:translateY(-6px);border-color:rgba(182,255,46,.5)}
+    .trophy .t-img{aspect-ratio:16/10;overflow:hidden}
+    .trophy .t-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .trophy:hover .t-img img{transform:scale(1.04)}
+    .trophy .t-body{padding:20px 22px}
+    .trophy .t-place{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--lime);
+      text-transform:uppercase;margin-bottom:8px}
+    .trophy h3{font-size:1.15rem;margin-bottom:6px}
+    .trophy p{color:var(--muted);font-size:.88rem}
+  </style>
+  <div class="trophy-grid">
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/fakeblock-team.jpg" alt="fakeblock team winning Best Pitch at NYU"></div>
+      <div class="t-body">
+        <div class="t-place">★ Best Pitch</div>
+        <h3>fakeblock</h3>
+        <p>NYU Tandon "Trust in the Hiring Funnel" HR Tech Hackathon · Sep 2026</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/superspeeders-1.jpg" alt="SuperSpeeders team with trophy"></div>
+      <div class="t-body">
+        <div class="t-place">★ 1st Place</div>
+        <h3>DMV Superspeeder Detector</h3>
+        <p>NYC Stop Super Speeders Hackathon · Jan 2026</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/gymbro-1.jpg" alt="GymBro AI team with prizes"></div>
+      <div class="t-body">
+        <div class="t-place">★ 2nd of 132 teams</div>
+        <h3>GymBro AI</h3>
+        <p>MLH × DigitalOcean Global AI Hackathon · Jan 2026</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/profhacks-1.jpg" alt="Cowboy Crusaders winning build at Profhacks"></div>
+      <div class="t-body">
+        <div class="t-place">★ 1st Place</div>
+        <h3>Cowboy Crusaders</h3>
+        <p>Profhacks @ Rowan University · Apr 2026</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/rca-1.jpg" alt="Shrikar with his RCA symposium poster"></div>
+      <div class="t-body">
+        <div class="t-place">★ 3rd Place</div>
+        <h3>Millimeter-Wave CO Detection</h3>
+        <p>RCA Technical Symposium poster · Dec 2025</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/emptyspace-1.jpg" alt="Shrikar and Evan Su with Project Empty Space poster"></div>
+      <div class="t-body">
+        <div class="t-place">★ Research Symposium</div>
+        <h3>Project Empty Space</h3>
+        <p>Stevens Undergraduate Research Symposium · Nov 2025</p>
+      </div>
+    </div>
+    <div class="trophy rv">
+      <div class="t-img"><img data-src="assets/linkedin/simplypark-1.jpg" alt="SimplyPark smart parking demo hardware"></div>
+      <div class="t-body">
+        <div class="t-place">★ Senior Design Expo</div>
+        <h3>SimplyPark</h3>
+        <p>Smart parking system for the Babbio Garage · Jun 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="contact">
   <div class="rv">
-    <div class="sec-label">06 — Contact</div>
+    <div class="sec-label">09 — Contact</div>
     <div class="sec-title">Let's build <span class="grad">something.</span></div>
     <p class="sec-sub" style="margin:0 auto">Internships, research collabs, or just cool robot talk — my inbox is open.</p>
     <div class="contact-links">
@@ -397,6 +584,44 @@ img.broken{display:none}
 </footer>
 
 <script>
+/* ---------- smooth scroll + scroll-driven motion (Lenis + GSAP) ---------- */
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lenis = null;
+  if (!reduced && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
+    (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const sel = a.getAttribute('href');
+        if (sel.length > 1) {
+          const el = document.querySelector(sel);
+          if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -64 }); }
+        }
+      });
+    });
+  }
+  const bar = document.getElementById('progress');
+  function onScroll(){
+    const h = document.documentElement;
+    const k = h.scrollTop / ((h.scrollHeight - h.clientHeight) || 1);
+    bar.style.width = (k * 100).toFixed(2) + '%';
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if (!reduced && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    if (lenis) lenis.on('scroll', ScrollTrigger.update);
+    gsap.to('.hero-inner', { yPercent: -22, opacity: 0.15, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('#mesh', { yPercent: 12, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+    document.querySelectorAll('.sec-title').forEach(t => {
+      gsap.from(t, { x: -46, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: t, start: 'top 88%', end: 'top 55%', scrub: true } });
+    });
+  }
+})();
+
 /* ---------- particle mesh hero ---------- */
 (function(){
   const c = document.getElementById('mesh'), x = c.getContext('2d');
