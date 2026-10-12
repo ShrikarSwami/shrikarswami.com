@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shrikar Swami — I build robots that think</title>
-<meta name="description" content="Shrikar Swami: CS @ Stevens, AI research, robotics, and self-hosted AI systems.">
+<title>Shrikar Swami — CS @ Stevens</title>
+<meta name="description" content="Shrikar Swami: second-year CS at Stevens. Robots, drones, and a self-hosted AI mesh.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -113,6 +113,7 @@ section{padding:110px 24px;max-width:1180px;margin:0 auto;position:relative}
 .proj:hover{transform:translateY(-8px) scale(1.01);border-color:rgba(255,45,120,.5);
   box-shadow:0 24px 60px rgba(255,45,120,.16)}
 .proj-img{height:210px;position:relative;overflow:hidden;background:linear-gradient(135deg,#101828,#231231)}
+a.proj{display:block;color:inherit}
 .proj-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .proj:hover .proj-img img{transform:scale(1.06)}
 .proj-tag{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:.72rem;letter-spacing:.15em;
@@ -131,7 +132,13 @@ section{padding:110px 24px;max-width:1180px;margin:0 auto;position:relative}
 .timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;
   background:linear-gradient(var(--cyan),var(--magenta))}
 .t-item{position:relative;margin-bottom:44px;background:var(--panel);border:1px solid rgba(255,255,255,.07);
-  border-radius:16px;padding:26px 28px;transition:border-color .25s}
+  border-radius:16px;padding:26px 150px 26px 28px;transition:border-color .25s}
+.co-logo{position:absolute;top:22px;right:22px;height:40px;width:auto;max-width:130px;object-fit:contain}
+.co-logo.mark{height:52px;width:52px;max-width:none}
+@media(max-width:720px){
+  .t-item{padding:26px 22px 78px}
+  .co-logo{top:auto;bottom:18px}
+}
 .t-item:hover{border-color:rgba(0,240,255,.4)}
 .t-item::before{content:'';position:absolute;left:-32px;top:30px;width:12px;height:12px;border-radius:50%;
   background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
@@ -139,23 +146,55 @@ section{padding:110px 24px;max-width:1180px;margin:0 auto;position:relative}
 .t-item:nth-child(3)::before{background:var(--lime);box-shadow:0 0 14px var(--lime)}
 .t-role{font-size:1.2rem;font-weight:600}
 .t-co{color:var(--cyan);font-weight:500;margin:4px 0}
+.t-co a{border-bottom:1px solid rgba(0,240,255,.45)}
+.t-co a:hover{color:var(--text)}
 .t-date{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:12px}
 .t-item ul{margin-left:18px;color:#c9cede;line-height:1.75;font-size:.96rem}
 .t-item li{margin-bottom:8px}
 .t-item li b{color:var(--text)}
 
-/* ---------- gallery ---------- */
-.g-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.g-item{border-radius:16px;overflow:hidden;aspect-ratio:1;position:relative;
-  background:linear-gradient(135deg,#131c2b,#241331);border:1px solid rgba(255,255,255,.07);
-  transition:transform .3s}
-.g-item:hover{transform:scale(1.03) rotate(.5deg);z-index:2}
-.g-item img{width:100%;height:100%;object-fit:cover}
+/* ---------- life gallery: large photo stack ---------- */
+.life-stage{position:relative;height:min(820px,84vh);margin:18px auto 0}
+.polaroid{position:absolute;left:50%;top:50%;appearance:none;border:none;cursor:zoom-in;
+  background:transparent;padding:0;z-index:var(--z,1);opacity:var(--o,1);pointer-events:auto;
+  transform:translate(-50%,-50%) translate(var(--x),var(--y)) rotate(var(--rot)) scale(var(--s));
+  transition:transform .85s cubic-bezier(.2,.7,.2,1),opacity .85s ease}
+.polaroid.is-buried{pointer-events:none}
+.polaroid img{display:block;width:auto;height:auto;max-width:min(920px,78vw);max-height:min(680px,72vh);
+  border-radius:18px;box-shadow:0 28px 70px rgba(0,0,0,.55)}
+.polaroid:hover,.polaroid:focus-visible{z-index:8;outline:none;
+  transform:translate(-50%,-50%) translate(var(--x),var(--y)) rotate(var(--rot)) scale(calc(var(--s) * 1.04))}
+.life-nudge{position:absolute;top:50%;z-index:10;transform:translateY(-50%)}
+.life-nudge-prev{left:0}
+.life-nudge-next{right:0}
+body.life-open nav,body.life-open #progress{opacity:0;pointer-events:none}
+.life-box{position:fixed;inset:0;z-index:400;background:rgba(6,6,11,.94);
+  display:flex;align-items:center;justify-content:center;gap:18px;padding:28px 18px 64px}
+.life-box[hidden]{display:none}
+.life-frame{margin:0;width:fit-content;max-width:min(1200px,92vw);background:transparent;padding:0;box-shadow:none}
+.life-frame img{display:block;width:auto;height:auto;max-width:min(1200px,92vw);max-height:86vh;border-radius:14px}
+.life-count{margin-top:14px;font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;color:var(--muted);text-align:center}
+.life-arrow,.life-x,.life-nudge{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(16,16,24,.8);
+  color:var(--text);cursor:pointer;border-radius:999px;transition:border-color .2s,transform .2s}
+.life-arrow,.life-nudge{width:52px;height:52px;font-size:1.8rem;line-height:1;flex:none}
+.life-arrow:hover,.life-x:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.life-nudge:hover{border-color:var(--cyan);transform:translateY(-50%) translateY(-2px)}
+.life-x{position:absolute;top:22px;right:22px;width:44px;height:44px;font-size:1.5rem}
+@media(max-width:720px){
+  .life-stage{height:min(640px,78vh)}
+  .polaroid img{max-width:min(520px,86vw);max-height:min(460px,62vh)}
+  .life-box{gap:8px;padding:72px 8px 48px}
+  .life-frame,.life-frame img{max-width:92vw}
+  .life-arrow,.life-nudge{width:40px;height:40px}
+}
 
 /* ---------- contact ---------- */
 #contact{text-align:center;padding-bottom:140px}
 #contact .sec-title{margin-bottom:12px}
-.contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.card-scan{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:36px}
+.card-scan img{width:132px;height:132px;background:#fff;border-radius:14px;padding:8px}
+.card-scan a{color:var(--cyan);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
 .c-link{display:flex;align-items:center;gap:10px;padding:15px 28px;border-radius:14px;
   background:var(--panel);border:1px solid rgba(255,255,255,.1);font-weight:500;transition:all .25s}
 .c-link:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,240,255,.18)}
@@ -180,9 +219,9 @@ img.broken{display:none}
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
     <a href="#gallery">Life</a>
-    <a href="#reel">Reel</a>
-    <a href="#vault">Vault</a>
-    <a href="#trophies">Trophies</a>
+    <a href="#vault">Repos</a>
+    <a href="#beyond">Beyond</a>
+    <a href="#trophies">Awards</a>
     <a class="hire" href="#contact">Hire me</a>
   </div>
 </nav>
@@ -192,7 +231,7 @@ img.broken{display:none}
   <div class="hero-inner">
     <div class="kicker">// hello world, I'm</div>
     <h1>SHRIKAR <span class="grad">SWAMI</span></h1>
-    <p class="tagline">CS @ Stevens. I build <b>robots that think</b> — computer vision, humanoids that play goalie, and a self-hosted AI mesh that runs my life.</p>
+    <p class="tagline">CS @ Stevens. I do stuff <b>(that's it)</b>.</p>
     <div class="cta">
       <a class="btn btn-solid" href="#projects">See my builds</a>
       <a class="btn btn-ghost" href="#contact">Get in touch</a>
@@ -206,7 +245,7 @@ img.broken{display:none}
 <section id="about">
   <div class="rv">
     <div class="sec-label">01 — About</div>
-    <div class="sec-title">Data in, <span class="grad">decisions out.</span></div>
+    <div class="sec-title">Trying <span class="grad">everything.</span></div>
   </div>
   <div class="about-grid">
     <div class="portrait rv">
@@ -214,9 +253,9 @@ img.broken{display:none}
       <img data-src="assets/about-montclair.jpg" alt="Shrikar presenting at Montclair State University">
     </div>
     <div class="about-copy rv">
-      <p>I'm a second-year CS student at <b>Stevens Institute of Technology</b> (Quantitative Finance minor) who treats curiosity as a system requirement. I fell into CS because it's the closest thing to a superpower: <b>take in tons of sensor data, make quick smart decisions, and ship things people actually use.</b></p>
-      <p>By day I've done AI research at a defense contractor and built <b>VR teleoperation for a 29-DOF humanoid</b>. By night I run <b>SLHJ</b>, a self-hosted AI mesh across a Jetson AGX Thor, my PCs, and my Mac — with a 32B-parameter LLM that lives entirely on my own hardware.</p>
-      <p>When a problem grabs me, I <b>hyperfixate until it's solved</b> — 4am sessions included. The previous intern spent four weeks stuck on a teleop bug; I hit the same bug and rebuilt the whole stack in three days.</p>
+      <p>I'm a second-year Computer Science student at <b>Stevens Institute of Technology</b> (Quantitative Finance minor) who likes trying everything. I fell in love with CS because it's the closest thing to a superpower: if there's something I want to do, I can just do it, whether that's a hardware project, a piece of software, a tool, or something else.</p>
+      <p>I've done AI research for a defense contractor and written programs for the <b>Unitree G1 Edu</b> humanoid for my jobs. I also built <b>SLHJ</b>, my own self-hosted multi-node AI mesh across a network of my own hardware. It's completely local and completely private. Who do you think made this website?</p>
+      <p>When I find a challenge, I'll do anything to solve it, even if that means staying up until <b>4am</b>. I'm passionate about finding solutions, and I do it purely for the love of the game.</p>
       <div class="chips">
         <span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">YOLOv8 + TensorRT</span>
         <span class="chip">ROS / DDS</span><span class="chip">CORE + EMANE</span><span class="chip">TypeScript</span>
@@ -239,71 +278,45 @@ img.broken{display:none}
     <p class="sec-sub">A few favorites. Everything here went from "what if" to running on real hardware.</p>
   </div>
   <div class="proj-grid">
-    <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Robotics</span><img data-src="assets/otto/otto-vr-teleop.jpg" alt="Shrikar teleoperating OTTO with a VR headset"></div>
+    <a class="proj rv" href="enver.html">
+      <div class="proj-img"><span class="proj-tag">Robotics</span><img data-src="assets/otto/otto-goalkeeper.jpg" alt="OTTO the robot goalkeeper in the net, with a soccer ball at its feet" style="object-position:center 42%"></div>
       <div class="proj-body">
         <h3>Project OTTO — Robot Goalkeeper</h3>
-        <p>Autonomous soccer goalkeeper for a Unitree G1 humanoid. Pure-TensorRT YOLOv8s ball detection, finite-state-machine dive controller, deployed in Washington Square Park against real human shooters. Plus a full VR teleoperation stack — me in a Quest 3, OTTO mirroring every move.</p>
-        <div class="proj-meta"><span class="award">★ Deployed IRL</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
+        <p>Autonomous soccer goalkeeper for a Unitree G1 humanoid. Pure-TensorRT YOLOv8s ball detection, finite-state-machine dive controller, deployed in Washington Square Park against real human shooters.</p>
+        <div class="proj-meta"><span class="award">★ Deployed IRL</span><span style="color:var(--cyan)">Enver videos →</span></div>
       </div>
-    </div>
+    </a>
+    <a class="proj rv" href="enver.html">
+      <div class="proj-img"><span class="proj-tag">Robotics</span><img data-src="assets/teleop.jpg" alt="Shrikar teleoperating OTTO with a Quest 3 headset"></div>
+      <div class="proj-body">
+        <h3>VR Teleoperation Suite</h3>
+        <p>Low-latency VR teleop for a 29-DOF Unitree G1: Meta Quest 3 tracking, CasADi/Pinocchio inverse kinematics, CycloneDDS streaming. Bimanual arm mirroring, joystick locomotion, stereo vision.</p>
+        <div class="proj-meta"><span class="award">★ Built in 3 days</span><span style="color:var(--cyan)">Enver videos →</span></div>
+      </div>
+    </a>
     <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">AI Infra</span><div class="ph-label">SLHJ PHOTO</div><img data-src="assets/slhj.jpg" alt="SLHJ"></div>
+      <div class="proj-img"><span class="proj-tag">AI Infra</span><img data-src="assets/slhj.jpg" alt="SLHJ node graph of the self-hosted AI mesh"></div>
       <div class="proj-body">
         <h3>SLHJ — Self-Hosted AI Mesh</h3>
-        <p>Multi-node personal AI mesh across Jetson AGX Thor, PCs, and Macs over Tailscale. Capability-based routing, Telegram operator loop, SQLite memory graph, and a 32B LLM served locally via Ollama. 120+ hours and counting.</p>
+        <p>A multi-node AI mesh across my own hardware — Jetson, PCs, and Mac. Completely local and completely private. Capability-based routing, a Telegram operator loop, and a 32B model that never leaves the house.</p>
         <div class="proj-meta"><span class="award">★ 4am sessions included</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
       </div>
     </div>
     <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Robotics</span><div class="ph-label">TELEOP PHOTO</div><img data-src="assets/teleop.jpg" alt="VR teleoperation"></div>
+      <div class="proj-img"><span class="proj-tag">Drones</span><img data-src="assets/drone-swarm.jpg" alt="Drone swarm split into isolated clusters on a dark grid"></div>
       <div class="proj-body">
-        <h3>VR Teleoperation Suite</h3>
-        <p>Low-latency VR teleop for a 29-DOF Unitree G1: Meta Quest 3 tracking, CasADi/Pinocchio inverse kinematics, CycloneDDS streaming. Bimanual arm mirroring, joystick locomotion, stereo vision.</p>
-        <div class="proj-meta"><span class="award">★ Built in 3 days</span><span style="color:var(--muted)">Enver Studios</span></div>
+        <h3>Drone Swarm Splitting</h3>
+        <p>A live simulation of how you break up a huge drone swarm. Instead of chasing every aircraft, it finds a small set of hub drones and cuts those links, splitting the swarm into pieces that can't talk to each other.</p>
+        <div class="proj-meta"><span style="color:var(--muted)">Chen et al. 2022</span><a href="https://github.com/ShrikarSwami/drone-swarm-splitting" target="_blank" rel="noopener">GitHub →</a></div>
       </div>
     </div>
     <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Civic Tech</span><img data-src="https://i.ytimg.com/vi/ptsiaKKCn2o/hqdefault.jpg" alt="SuperSpeeders hackathon demo"></div>
+      <div class="proj-img"><span class="proj-tag">Hardware</span><img data-src="assets/linkedin/simplypark-1.jpg" alt="SimplyPark sensor hardware and garage map"></div>
       <div class="proj-body">
-        <h3>DMV Superspeeder Detector</h3>
-        <p>Data-driven risk tool flagging repeat high-risk drivers by frequency, timing, and severity from enforcement data. Took 1st place at the NYC Civic Tech Hackathon.</p>
-        <div class="proj-meta"><span class="award">★ 1st Place</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
+        <h3>SimplyPark</h3>
+        <p>My Stevens senior design project, which I did freshman year. A smart parking system for the Babbio Garage: a sensor on the bench and a garage map on the laptop, so you can see which spots are open without circling the deck.</p>
+        <div class="proj-meta"><span style="color:var(--muted)">Stevens · freshman year</span></div>
       </div>
-    </div>
-    <div class="proj rv">
-      <div class="proj-img"><span class="proj-tag">Security</span><img data-src="https://i.ytimg.com/vi/-O5mWXlSM4k/hqdefault.jpg" alt="fakeblock NYU demo"></div>
-      <div class="proj-body">
-        <h3>fakeblock</h3>
-        <p>Outlook add-in that flags fake recruiter emails before they waste your time. Won Best Pitch at the NYU Tandon HR Tech Hackathon.</p>
-        <div class="proj-meta"><span class="award">★ Best Pitch</span><a href="https://github.com/ShrikarSwami" target="_blank" rel="noopener">GitHub →</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="rv" style="margin-top:56px">
-    <div class="sec-title" style="font-size:clamp(1.5rem,3.5vw,2.2rem)">OTTO in action. <span class="grad">Me in the loop.</span></div>
-    <p class="sec-sub">VR teleoperation at Enver Studios — Quest 3 on my head, G1 mirroring every move.</p>
-  </div>
-  <style>
-    .otto-vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
-    .otto-vid{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.07);
-      background:var(--panel);transition:transform .3s,border-color .3s}
-    .otto-vid:hover{transform:translateY(-6px);border-color:rgba(0,240,255,.4)}
-    .otto-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
-    .otto-vid .t-cap{padding:14px 18px;font-size:.85rem;color:var(--muted);font-family:var(--mono)}
-  </style>
-  <div class="otto-vids">
-    <div class="otto-vid rv">
-      <video controls preload="metadata" poster="assets/otto/otto-vr-teleop.jpg"><source src="assets/otto/otto-teleop-1.mp4" type="video/mp4"></video>
-      <div class="t-cap">TELEOP SESSION · ENVER STUDIOS</div>
-    </div>
-    <div class="otto-vid rv">
-      <video controls preload="metadata"><source src="assets/otto/otto-teleop-2.mp4" type="video/mp4"></video>
-      <div class="t-cap">MIRRORING · ENVER STUDIOS</div>
-    </div>
-    <div class="otto-vid rv">
-      <video controls preload="metadata"><source src="assets/otto/otto-teleop-3.mp4" type="video/mp4"></video>
-      <div class="t-cap">LIVE CONTROL · ENVER STUDIOS</div>
     </div>
   </div>
 </section>
@@ -316,8 +329,9 @@ img.broken{display:none}
   </div>
   <div class="timeline">
     <div class="t-item rv">
+      <a href="https://aurestech.com/" target="_blank" rel="noopener"><img class="co-logo" src="assets/logos/aurestech.png" alt="AuresTech"></a>
       <div class="t-role">AI Research Intern</div>
-      <div class="t-co">AuresTech Inc. · Bridgewater, NJ</div>
+      <div class="t-co"><a href="https://aurestech.com/" target="_blank" rel="noopener">AuresTech Inc.</a> · Bridgewater, NJ</div>
       <div class="t-date">JUN 2026 — OCT 2026</div>
       <ul>
         <li>Engineered a <b>multi-view ML vision pipeline</b> reconstructing 3D topologies from camera arrays: <b>97.9% detection accuracy</b>, <b>3.1 cm median precision</b>, zero GPS.</li>
@@ -326,8 +340,9 @@ img.broken{display:none}
       </ul>
     </div>
     <div class="t-item rv">
+      <a href="https://www.enver.com/" target="_blank" rel="noopener"><img class="co-logo mark" src="assets/logos/enver.webp" alt="Enver"></a>
       <div class="t-role">Robotics Engineer Intern</div>
-      <div class="t-co">Enver Studios · New York, NY</div>
+      <div class="t-co"><a href="https://www.enver.com/" target="_blank" rel="noopener">Enver Studios</a> · video game studio · New York, NY</div>
       <div class="t-date">MAY 2026 — AUG 2026</div>
       <ul>
         <li>Built a low-latency <b>VR teleoperation suite</b> for a 29-DOF Unitree G1 humanoid (Quest 3 tracking, CasADi/Pinocchio IK, CycloneDDS).</li>
@@ -351,66 +366,39 @@ img.broken{display:none}
 <section id="gallery">
   <div class="rv">
     <div class="sec-label">04 — Life</div>
-    <div class="sec-title">Off the <span class="grad">keyboard.</span></div>
-    <p class="sec-sub">Lab demos, hackathons, and everything in between.</p>
+    <div class="sec-title">Beyond the <span class="grad">keyboard.</span></div>
   </div>
-  <div class="g-strip rv" id="gstrip">
-    <div class="g-item"><img data-src="assets/me-smile.jpg" alt="Shrikar smiling at an event"></div>
-    <div class="g-item"><img data-src="assets/me-hackathon.jpg" alt="Shrikar at the Stevens Business + AI Hackathon"></div>
-    <div class="g-item"><img data-src="assets/me-street.jpg" alt="Shrikar in the city"></div>
-    <div class="g-item"><img data-src="assets/me-wall.jpg" alt="Shrikar portrait"></div>
-    <div class="g-item" style="aspect-ratio:16/10"><img data-src="assets/me-expo.jpg" alt="Shrikar presenting SimplyPark at the Stevens expo"></div>
-    <div class="g-item"><img data-src="assets/paddle-demo.jpg" alt="Paddle detection drone demo"></div>
-    <div class="g-item"><img data-src="assets/lego-avatar.jpg" alt="Lego minifigure avatar"></div>
-    <div class="g-item" style="aspect-ratio:16/10">
-      <video controls preload="none" poster="assets/paddle-demo.jpg" style="width:100%;height:100%;object-fit:cover">
-        <source src="assets/paddle-demo.mp4" type="video/mp4">
-      </video>
-    </div>
+  <div class="life-stage" id="lifeStage" hidden>
+    <button class="life-nudge life-nudge-prev" type="button" aria-label="Previous photo">‹</button>
+    <button class="life-nudge life-nudge-next" type="button" aria-label="Next photo">›</button>
   </div>
 </section>
-
-<section id="reel">
-  <div class="rv">
-    <div class="sec-label">05 — Demo Reel</div>
-    <div class="sec-title">The <span class="grad">archive.</span></div>
-    <p class="sec-sub">Demos, explainers, and hackathon pitches — straight from the collection.</p>
-  </div>
-  <style>
-    .reel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px}
-    .reel-item{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:18px;
-      overflow:hidden;transition:transform .3s,border-color .3s}
-    .reel-item:hover{transform:translateY(-6px);border-color:rgba(0,240,255,.4);
-      box-shadow:0 18px 44px rgba(0,240,255,.12)}
-    .reel-frame{aspect-ratio:16/9;background:#000}
-    .reel-frame iframe{width:100%;height:100%;border:0;display:block}
-    .reel-cap{padding:16px 20px;font-weight:600;font-size:.98rem}
-    .reel-cap span{display:block;color:var(--muted);font-weight:400;font-size:.8rem;
-      margin-top:5px;font-family:var(--mono);letter-spacing:.06em}
-  </style>
-  <div class="reel-grid">
-    <div class="reel-item rv">
-      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/-O5mWXlSM4k" title="Trust in the Hiring Funnel — NYU Hackathon" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="reel-cap">fakeblock — Trust in the Hiring Funnel<span>NYU HACKATHON · BEST PITCH · 1:48</span></div>
-    </div>
-    <div class="reel-item rv">
-      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ptsiaKKCn2o" title="SuperSpeeders Hackathon Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="reel-cap">SuperSpeeders — NY DMV Alert System<span>CIVIC TECH HACKATHON · 1ST PLACE · 3:19</span></div>
-    </div>
-    <div class="reel-item rv">
-      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jBkQoYzdoTE" title="GymBro AI Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="reel-cap">GymBro — AI Gym Partner<span>DIGITALOCEAN × MLH · 2ND PLACE · 2:09</span></div>
-    </div>
-  </div>
-</section>
+<div class="life-box" id="lifeBox" hidden role="dialog" aria-modal="true" aria-label="Life photos">
+  <button class="life-x" type="button" aria-label="Close">×</button>
+  <button class="life-arrow life-prev" type="button" aria-label="Previous photo">‹</button>
+  <figure class="life-frame">
+    <img id="lifeFull" alt="">
+    <figcaption class="life-count" id="lifeCount"></figcaption>
+  </figure>
+  <button class="life-arrow life-next" type="button" aria-label="Next photo">›</button>
+</div>
 
 <section id="vault">
   <div class="rv">
-    <div class="sec-label">06 — The Vault</div>
-    <div class="sec-title">Every repo. <span class="grad">No filler.</span></div>
-    <p class="sec-sub">The full public archive — hackathons, robots, CV experiments, coursework, and beautiful nonsense. Updated automatically.</p>
+    <div class="sec-label">05 — Repos</div>
+    <div class="sec-title">My <span class="grad">repos.</span></div>
+    <p class="sec-sub">Hackathons, robots, computer vision, coursework, and a bunch of stupid stuff too. Always updated. If a repo has a demo, the video is on the card.</p>
   </div>
   <style>
+    .reel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px;margin-bottom:22px}
+    .reel-item{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden}
+    .reel-frame{aspect-ratio:16/9;background:#000}
+    .reel-frame.portrait{aspect-ratio:9/16;max-height:640px}
+    .reel-frame iframe,.reel-frame video{width:100%;height:100%;border:0;display:block;object-fit:contain;background:#000}
+    .reel-cap{padding:16px 20px}
+    .reel-cap h3{font-size:1.05rem;margin-bottom:8px}
+    .reel-cap p{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:12px}
+    .reel-cap a{color:var(--cyan);font-family:var(--mono);font-size:.78rem}
     .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
     .repo{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:14px;
       padding:18px 20px;transition:transform .25s,border-color .25s}
@@ -418,33 +406,118 @@ img.broken{display:none}
     .repo h4{font-size:.95rem;margin-bottom:6px;font-family:var(--mono);font-weight:500}
     .repo h4 a{color:var(--cyan)}
     .repo h4 a:hover{text-decoration:underline}
-    .repo p{color:var(--muted);font-size:.84rem;line-height:1.6;margin-bottom:10px;min-height:2.6em}
+    .repo p{color:var(--muted);font-size:.84rem;line-height:1.6;margin-bottom:10px}
     .lang{font-family:var(--mono);font-size:.7rem;color:var(--lime);letter-spacing:.08em;text-transform:uppercase}
+    #gallery{padding-bottom:40px}
+    .mark-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;height:44px}
+    .mark-row img,.mark-row svg{height:44px;width:auto;display:block}
+    .app{width:44px;height:44px}
   </style>
+  <div class="reel-grid">
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/-O5mWXlSM4k" title="fakeblock demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>fakeblock</h3>
+        <p>An Outlook add-in that flags fake recruiter emails before they waste your time. Best Pitch at the NYU hiring-funnel hackathon.</p>
+        <a href="https://github.com/ShrikarSwami/trust-in-the-hiring-funnel-hackathon-nyu" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ptsiaKKCn2o" title="SuperSpeeders demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>SuperSpeeders</h3>
+        <p>A public alert system for New York DMVs that flags repeat high-risk drivers from enforcement data. 1st place at the NYC civic hackathon.</p>
+        <a href="https://github.com/ShrikarSwami/stop-super-speeders-hackathon-Shrikar" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jBkQoYzdoTE" title="GymBro AI demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>GymBro AI</h3>
+        <p>A gym partner that counts your reps from the camera and talks back, nice or mean. 2nd of 132 teams at MLH × DigitalOcean.</p>
+        <a href="https://github.com/ShrikarSwami/GYMBRO-AI-DigitalOcean-X-MLH-Hackathon-2nd-Place" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Zql5vPRC_ms" title="face_id demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>face_id</h3>
+        <p>A few-shot face check. Enroll a handful of reference photos, then match a face from a still or a live camera.</p>
+        <a href="https://github.com/ShrikarSwami/face_id" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/C0HojKujpl0" title="Pressures demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>Pressures</h3>
+        <p>An interactive piece on the pressures men carry.</p>
+        <a href="https://github.com/ShrikarSwami/Pressures" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Cj1oETl1BUY" title="MonkeyVision demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>MonkeyVision</h3>
+        <p>Webcam hand and face gestures, answered with monkey clips.</p>
+        <a href="https://github.com/ShrikarSwami/MonkeyVision" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/56XS_4H8a_w" title="NicheApple demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>NicheApple</h3>
+        <p>Reads a facial expression and reflects it back as a niche apple.</p>
+        <a href="https://github.com/ShrikarSwami/NicheApple" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uarb4KIBCAo" title="DuckTown demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>DuckTown</h3>
+        <p>2D social sandbox: convince the mayor, mind the rumors.</p>
+        <a href="https://github.com/ShrikarSwami/DuckTown" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Ia8huYv7qrs" title="67-Detector demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="reel-cap">
+        <h3>67-Detector</h3>
+        <p>Motion-activated 6-7 detector. Music, flashes, chaos.</p>
+        <a href="https://github.com/ShrikarSwami/67-Detector" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame portrait"><video controls playsinline preload="metadata" src="assets/otto-dance.mp4" title="otto-dance-pipeline demo"></video></div>
+      <div class="reel-cap">
+        <h3>otto-dance-pipeline</h3>
+        <p>TikTok dance clips turned into Unitree G1 motion.</p>
+        <a href="https://github.com/ShrikarSwami/otto-dance-pipeline" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+    <div class="reel-item rv">
+      <div class="reel-frame portrait"><video controls playsinline preload="metadata" src="assets/otto-soccer.mp4" title="soccer-ball-detector demo"></video></div>
+      <div class="reel-cap">
+        <h3>soccer-ball-detector</h3>
+        <p>OTTO ball vision and the goalkeeper controller for the Unitree G1.</p>
+        <a href="https://github.com/ShrikarSwami/soccer-ball-detector" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+  </div>
   <div class="repo-grid rv">
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Sift" target="_blank" rel="noopener">Sift</a></h4><p>Tool for businesses to rank clients off prior history.</p><span class="lang">JavaScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/trust-in-the-hiring-funnel-hackathon-nyu" target="_blank" rel="noopener">fakeblock</a></h4><p>Outlook add-in flagging fake recruiter emails. Best Pitch @ NYU.</p><span class="lang">TypeScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/AR_Problem_Solver" target="_blank" rel="noopener">AR Problem Solver</a></h4><p>iOS app solving problems through Meta Wearables DAT glasses.</p><span class="lang">Swift</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Mozzi" target="_blank" rel="noopener">Mozzi</a></h4><p>Cinematic temporal-tracker HUD over live Apple Maps satellite.</p><span class="lang">Swift</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/soccer-ball-detector" target="_blank" rel="noopener">soccer-ball-detector</a></h4><p>OTTO ball vision + goalkeeper FSM for the Unitree G1.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/otto-dance-pipeline" target="_blank" rel="noopener">otto-dance-pipeline</a></h4><p>TikTok → Unitree G1 dance motion pipeline.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/otto-minecraft" target="_blank" rel="noopener">otto-minecraft</a></h4><p>OTTO scaffolding: robot × Minecraft experiments.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/face_id" target="_blank" rel="noopener">face_id</a></h4><p>Few-shot face verification library.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/BitCamp-2026" target="_blank" rel="noopener">BitCamp-2026</a></h4><p>Civic traffic-safety intelligence from police reports.</p><span class="lang">TypeScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/DuckTown" target="_blank" rel="noopener">DuckTown</a></h4><p>2D Godot social sandbox: convince the mayor, mind the rumors.</p><span class="lang">GDScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/GYMBRO-AI-DigitalOcean-X-MLH-Hackathon-2nd-Place" target="_blank" rel="noopener">GymBro AI</a></h4><p>MediaPipe pose tracking + voice coaching gym partner. 2nd place.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/stop-super-speeders-hackathon-Shrikar" target="_blank" rel="noopener">SuperSpeeders</a></h4><p>Public-transit alert system for NY DMVs. 1st place.</p><span class="lang">Jupyter</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Pressures" target="_blank" rel="noopener">Pressures</a></h4><p>Interactive experience on men's mental health pressures.</p><span class="lang">JavaScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/MonkeyVision" target="_blank" rel="noopener">MonkeyVision</a></h4><p>Realtime Mac webcam hand + face gesture detection.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Rock-Paper-Scissors" target="_blank" rel="noopener">Rock-Paper-Scissors</a></h4><p>Webcam RPS with OpenCV hand tracking.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/NicheApple" target="_blank" rel="noopener">NicheApple</a></h4><p>Realtime webcam app with MediaPipe + OpenCV.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Glasses-Identifiers" target="_blank" rel="noopener">Glasses-Identifiers</a></h4><p>Realtime webcam app that identifies glasses on people.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/67-Detector" target="_blank" rel="noopener">67-Detector</a></h4><p>Motion-activated 6-7 meme detector. Music, flashes, chaos.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Sift" target="_blank" rel="noopener">Sift</a></h4><p>Ranks clients from prior history, with the models running locally.</p><span class="lang">JavaScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/AR_Problem_Solver" target="_blank" rel="noopener">AR Problem Solver</a></h4><p>iOS app that solves problems through Meta Wearables glasses.</p><span class="lang">Swift</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Mozzi" target="_blank" rel="noopener">Mozzi</a></h4><p>Cinematic tracker HUD over a live Apple Maps satellite view.</p><span class="lang">Swift</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/otto-minecraft" target="_blank" rel="noopener">otto-minecraft</a></h4><p>A bridge from a Minecraft bot toward the G1's arms.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/drone-swarm-splitting" target="_blank" rel="noopener">drone-swarm-splitting</a></h4><p>Live simulation that splits a drone swarm by cutting hub links.</p><span class="lang">JavaScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/BitCamp-2026" target="_blank" rel="noopener">BitCamp-2026</a></h4><p>Civic traffic-safety scores from police reports and speed cameras.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Rock-Paper-Scissors" target="_blank" rel="noopener">Rock-Paper-Scissors</a></h4><p>Webcam rock-paper-scissors with OpenCV hand tracking.</p><span class="lang">Python</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Glasses-Identifiers" target="_blank" rel="noopener">Glasses-Identifiers</a></h4><p>Realtime webcam app that spots glasses on people.</p><span class="lang">Python</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/SwampIzzoSoundboard" target="_blank" rel="noopener">SwampIzzoSoundboard</a></h4><p>A soundboard of beautiful nonsense.</p><span class="lang">Python</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Chest-Controller" target="_blank" rel="noopener">Chest-Controller</a></h4><p>Bored of Crossy Road with fingers? Now play with your chest.</p><span class="lang">—</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Chest-Controller" target="_blank" rel="noopener">Chest-Controller</a></h4><p>Crossy Road, played with your chest.</p><span class="lang">Python</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Crossy-Road-Jumps" target="_blank" rel="noopener">Crossy-Road-Jumps</a></h4><p>Chicken-crossing experiments.</p><span class="lang">Python</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/dementia-memory-assistant" target="_blank" rel="noopener">dementia-memory-assistant</a></h4><p>Memory assistance experiments.</p><span class="lang">TypeScript</span></div>
-    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Hack-with-MLH-and-DigitalOcean-NYC" target="_blank" rel="noopener">MLH × DigitalOcean NYC</a></h4><p>Custom CV pipeline with pose estimation.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/Hack-with-MLH-and-DigitalOcean-NYC" target="_blank" rel="noopener">MLH × DigitalOcean NYC</a></h4><p>A computer-vision workout pipeline with pose estimation.</p><span class="lang">TypeScript</span></div>
+    <div class="repo"><h4><a href="https://github.com/ShrikarSwami/live-robo-voice" target="_blank" rel="noopener">live-robo-voice</a></h4><p>Live voice for the robot.</p><span class="lang">Python</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/mobile" target="_blank" rel="noopener">mobile</a></h4><p>Mobile experiments.</p><span class="lang">TypeScript</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/CS-284" target="_blank" rel="noopener">CS-284</a></h4><p>Coursework: data structures in Java.</p><span class="lang">Java</span></div>
     <div class="repo"><h4><a href="https://github.com/ShrikarSwami/CS115-Programming-Assignments" target="_blank" rel="noopener">CS-115</a></h4><p>Intro CS coursework in Python.</p><span class="lang">Python</span></div>
@@ -454,43 +527,49 @@ img.broken{display:none}
 
 <section id="beyond">
   <div class="rv">
-    <div class="sec-label">07 — Beyond Code</div>
+    <div class="sec-label">06 — Beyond Code</div>
     <div class="sec-title">Not everything <span class="grad">compiles.</span></div>
     <p class="sec-sub">The other obsessions.</p>
   </div>
   <style>
     .beyond-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+    a.beyond{display:block;color:inherit}
     .beyond{background:linear-gradient(160deg,var(--panel),#0c0c16);border:1px solid rgba(255,255,255,.07);
       border-radius:20px;padding:34px 30px;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
     .beyond:hover{transform:translateY(-6px);border-color:rgba(255,176,46,.5)}
-    .beyond .emoji{font-size:2.4rem;margin-bottom:16px}
     .beyond h3{font-size:1.3rem;margin-bottom:10px}
     .beyond p{color:var(--muted);line-height:1.7;font-size:.95rem}
   </style>
   <div class="beyond-grid">
-    <div class="beyond rv">
-      <div class="emoji">🧊</div>
+    <a class="beyond rv" href="modeling.html">
+      <div class="mark-row"><img src="assets/logos/blender.svg" alt="Blender"></div>
       <h3>3D Modeling</h3>
-      <p>Blender builds, from Smiskis to whatever I'm hyperfixating on this week. Timelapses live on my YouTube — more dropping soon.</p>
-    </div>
-    <div class="beyond rv">
-      <div class="emoji">🎬</div>
+      <p>Blender builds, from Smiskis to whatever I'm hyperfixating on this week. The timelapse and the models open on their own page.</p>
+    </a>
+    <a class="beyond rv" href="editing.html">
+      <div class="mark-row">
+        <img src="assets/logos/premiere.svg" alt="Premiere Pro">
+        <img src="assets/logos/aftereffects.svg" alt="After Effects">
+        <img src="assets/logos/mediaencoder.svg" alt="Media Encoder">
+      </div>
       <h3>Video Editing</h3>
-      <p>Short films, hackathon recaps, and demos. I shoot, cut, and ship — the demo reel above is just the start.</p>
-    </div>
-    <div class="beyond rv">
-      <div class="emoji">🧱</div>
+      <p>Premiere Pro, After Effects, and Media Encoder. Short films, hackathon recaps, and demos — the cuts open on their own page.</p>
+    </a>
+    <a class="beyond rv" href="lego.html">
+      <div class="mark-row">
+        <img src="assets/logos/lego.svg" alt="LEGO">
+      </div>
       <h3>Lego Collection</h3>
-      <p>A serious collection, catalogued with the same energy I bring to code. My avatar is a minifig in a suit. That tells you everything.</p>
-    </div>
+      <p>A serious collection, catalogued with the same energy I bring to code. Photos and the live shelf open on their own page.</p>
+    </a>
   </div>
 </section>
 
 <section id="trophies">
   <div class="rv">
-    <div class="sec-label">08 — Trophy Wall</div>
-    <div class="sec-title">I don't just build. <span class="grad">I win.</span></div>
-    <p class="sec-sub">Hackathons, symposiums, and expos — receipts included.</p>
+    <div class="sec-label">07 — Awards</div>
+    <div class="sec-title">Some of my <span class="grad">awards.</span></div>
+    <p class="sec-sub">Here are hackathons and research symposiums.</p>
   </div>
   <style>
     .trophy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
@@ -547,30 +626,18 @@ img.broken{display:none}
         <p>RCA Technical Symposium poster · Dec 2025</p>
       </div>
     </div>
-    <div class="trophy rv">
-      <div class="t-img"><img data-src="assets/linkedin/emptyspace-1.jpg" alt="Shrikar and Evan Su with Project Empty Space poster"></div>
-      <div class="t-body">
-        <div class="t-place">★ Research Symposium</div>
-        <h3>Project Empty Space</h3>
-        <p>Stevens Undergraduate Research Symposium · Nov 2025</p>
-      </div>
-    </div>
-    <div class="trophy rv">
-      <div class="t-img"><img data-src="assets/linkedin/simplypark-1.jpg" alt="SimplyPark smart parking demo hardware"></div>
-      <div class="t-body">
-        <div class="t-place">★ Senior Design Expo</div>
-        <h3>SimplyPark</h3>
-        <p>Smart parking system for the Babbio Garage · Jun 2026</p>
-      </div>
-    </div>
   </div>
 </section>
 
 <section id="contact">
   <div class="rv">
-    <div class="sec-label">09 — Contact</div>
-    <div class="sec-title">Let's build <span class="grad">something.</span></div>
-    <p class="sec-sub" style="margin:0 auto">Internships, research collabs, or just cool robot talk — my inbox is open.</p>
+    <div class="sec-label">08 — Contact</div>
+    <div class="sec-title">Let's do <span class="grad">something.</span></div>
+    <p class="sec-sub" style="margin:0 auto">Internships, research, or just talk about tech — my inbox is open.</p>
+    <div class="card-scan">
+      <img src="assets/card-qr.svg" width="132" height="132" alt="QR code for Shrikar Swami's card">
+      <a href="card.html">Scan for the card →</a>
+    </div>
     <div class="contact-links">
       <a class="c-link" href="mailto:shrikarswami@live.com"><span class="ico">✉️</span>shrikarswami@live.com</a>
       <a class="c-link" href="https://github.com/ShrikarSwami" target="_blank" rel="noopener"><span class="ico">💻</span>GitHub</a>
@@ -580,7 +647,7 @@ img.broken{display:none}
 </section>
 
 <footer>
-  © 2026 SHRIKAR SWAMI · BUILT WITH CAFFEINE AND <span class="heart">♥</span> · SHRIKARSWAMI.COM
+  © 2026 SHRIKAR SWAMI · BUILT WITH CAFFEINE AND LOVE · SHRIKARSWAMI.COM
 </footer>
 
 <script>
@@ -590,6 +657,7 @@ img.broken{display:none}
   let lenis = null;
   if (!reduced && typeof Lenis !== 'undefined') {
     lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
+    window.siteLenis = lenis;
     (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
@@ -699,6 +767,191 @@ img.broken{display:none}
     img.src = img.dataset.src;
   }), {rootMargin:'200px'});
   document.querySelectorAll('img[data-src]').forEach(img => io.observe(img));
+})();
+
+/* ---------- life gallery: polaroid stack, click for carousel ---------- */
+(function(){
+  const photos = [
+    { src: 'assets/life/01.jpg', alt: 'Shrikar in a car during a stream' },
+    { src: 'assets/life/02.jpg', alt: 'Shrikar with friends, giving a thumbs up' },
+    { src: 'assets/life/03.jpg', alt: 'Shrikar with the SimplyPark team at the expo' },
+    { src: 'assets/life/04.jpg', alt: 'Shrikar at a table with a puzzle' },
+    { src: 'assets/life/05.jpg', alt: 'Shrikar with friends on a tree-lined road' },
+    { src: 'assets/life/06.jpg', alt: 'Shrikar next to a giant Lego Hulk' },
+    { src: 'assets/life/07.jpg', alt: 'Shrikar with a group in a classroom' },
+    { src: 'assets/life/08.jpg', alt: 'Shrikar with a friend in a vintage shop' },
+    { src: 'assets/life/09.jpg', alt: 'Shrikar at an IEEE table at Princeton' },
+    { src: 'assets/life/10.jpg', alt: 'Shrikar with friends beside a tower of La Croix' },
+    { src: 'assets/life/11.jpg', alt: 'Shrikar at dinner with friends' },
+    { src: 'assets/life/12.jpg', alt: 'Shrikar at breakfast with a friend' },
+    { src: 'assets/life/13.jpg', alt: 'A group photo at an IEEE section event' },
+    { src: 'assets/life/14.jpg', alt: 'Shrikar with friends in front of a Stevens backdrop' },
+    { src: 'assets/life/15.jpg', alt: 'A big group in front of a Stay Golden mural' },
+    { src: 'assets/life/16.jpg', alt: 'Shrikar with a friend at a show' },
+    { src: 'assets/life/17.jpg', alt: 'Pizza on the trunk of a car' },
+    { src: 'assets/life/18.jpg', alt: 'Shrikar with friends outside an ice cream shop' },
+    { src: 'assets/life/19.jpg', alt: 'Shrikar in front of a Greetings from Bermuda mural' },
+    { src: 'assets/life/20.jpg', alt: 'Shrikar in a cap and gown at Kennedy Park School' },
+    { src: 'assets/life/21.jpg', alt: 'Shrikar in a cap and gown at Iselin Middle School' },
+    { src: 'assets/life/22.jpg', alt: 'Shrikar graduating with his family at Manalapan High School' },
+    { src: 'assets/life/23.jpg', alt: 'A class photo in a classroom' },
+    { src: 'assets/life/24.jpg', alt: 'Shrikar in a suit, sitting on a car' },
+    { src: 'assets/life/25.jpg', alt: 'Shrikar and a friend holding Switch 2 receipts' },
+    { src: 'assets/life/26.jpg', alt: 'Shrikar with the Best Buy crew' },
+    { src: 'assets/life/27.jpg', alt: 'A class in front of a mural' },
+    { src: 'assets/life/28.jpg', alt: 'A haircut in progress' }
+  ];
+  const POSES = {
+    1: [{ rot: '-2.5deg', x: '0px', y: '0px', s: '1', z: '3' }],
+    2: [
+      { rot: '-3deg', x: '-6px', y: '-14px', s: '1', z: '3' },
+      { rot: '8deg', x: '36px', y: '28px', s: '0.95', z: '1' }
+    ],
+    3: [
+      { rot: '-1.5deg', x: '0px', y: '-6px', s: '1', z: '4' },
+      { rot: '-6deg', x: '-92px', y: '22px', s: '0.96', z: '2' },
+      { rot: '5deg', x: '104px', y: '30px', s: '0.93', z: '1' }
+    ]
+  };
+  const stage = document.getElementById('lifeStage');
+  const box = document.getElementById('lifeBox');
+  const full = document.getElementById('lifeFull');
+  const count = document.getElementById('lifeCount');
+  if (!stage || !box || !photos.length) return;
+
+  stage.hidden = false;
+  stage.setAttribute('role', 'group');
+  stage.setAttribute('aria-label', 'Life photos');
+  function shuffle(list) {
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = list[i]; list[i] = list[j]; list[j] = t;
+    }
+    return list;
+  }
+  const deck = photos.map((_, i) => i);
+  let previous = '';
+  try { previous = localStorage.getItem('life-browse-order') || ''; } catch (err) {}
+  let guard = 0;
+  do { shuffle(deck); guard++; } while (deck.join(',') === previous && guard < 12);
+  try { localStorage.setItem('life-browse-order', deck.join(',')); } catch (err) {}
+  const browse = deck.slice();
+  const cards = photos.map((photo, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'polaroid';
+    btn.dataset.index = String(i);
+    btn.setAttribute('aria-label', 'Open photo');
+    const img = document.createElement('img');
+    img.alt = photo.alt || 'Life photo';
+    img.src = photo.src;
+    btn.appendChild(img);
+    stage.appendChild(btn);
+    return btn;
+  });
+
+  function layout(){
+    const n = Math.min(3, photos.length);
+    const poses = POSES[n];
+    const narrow = matchMedia('(max-width:720px)').matches;
+    cards.forEach((card, i) => {
+      const rank = deck.indexOf(i);
+      const pose = rank < n ? poses[rank] : poses[n - 1];
+      const x = narrow ? (parseFloat(pose.x) * 0.42) + 'px' : pose.x;
+      const y = narrow ? (parseFloat(pose.y) * 0.42) + 'px' : pose.y;
+      card.style.setProperty('--rot', pose.rot);
+      card.style.setProperty('--x', x);
+      card.style.setProperty('--y', y);
+      card.style.setProperty('--s', rank < n ? pose.s : '0.86');
+      card.style.setProperty('--z', rank < n ? pose.z : '0');
+      card.style.setProperty('--o', rank < n ? '1' : '0');
+      card.classList.toggle('is-buried', rank >= n);
+      card.tabIndex = rank < n ? 0 : -1;
+    });
+  }
+  layout();
+  addEventListener('resize', layout);
+
+  let paused = false;
+  let open = false;
+  let cursor = 0;
+  let timer = 0;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prevBtn = stage.querySelector('.life-nudge-prev');
+  const nextBtn = stage.querySelector('.life-nudge-next');
+  function step(dir){
+    if (photos.length < 2) return;
+    if (dir > 0) deck.push(deck.shift());
+    else deck.unshift(deck.pop());
+    layout();
+  }
+  function arm(){
+    clearInterval(timer);
+    if (reduced || photos.length < 2) return;
+    timer = setInterval(() => {
+      if (paused || open || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      step(1);
+    }, 5600);
+  }
+  stage.addEventListener('mouseenter', () => { paused = true; });
+  stage.addEventListener('mouseleave', () => { paused = false; });
+  if (photos.length < 2) {
+    prevBtn.hidden = true;
+    nextBtn.hidden = true;
+  }
+  prevBtn.addEventListener('click', () => { step(-1); arm(); });
+  nextBtn.addEventListener('click', () => { step(1); arm(); });
+  stage.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    step(e.key === 'ArrowRight' ? 1 : -1);
+    arm();
+  });
+  arm();
+
+  function render(){
+    const photo = photos[browse[cursor]];
+    full.alt = photo.alt || 'Life photo';
+    full.src = photo.src;
+    count.textContent = (cursor + 1) + ' / ' + photos.length;
+  }
+  function show(photoIndex){
+    cursor = browse.indexOf(photoIndex);
+    if (cursor < 0) cursor = 0;
+    open = true;
+    box.hidden = false;
+    document.body.classList.add('life-open');
+    render();
+    document.body.style.overflow = 'hidden';
+    if (window.siteLenis) window.siteLenis.stop();
+    box.querySelector('.life-x').focus();
+  }
+  function hide(){
+    open = false;
+    box.hidden = true;
+    document.body.classList.remove('life-open');
+    full.removeAttribute('src');
+    document.body.style.overflow = '';
+    if (window.siteLenis) window.siteLenis.start();
+  }
+  if (photos.length < 2) {
+    box.querySelector('.life-prev').hidden = true;
+    box.querySelector('.life-next').hidden = true;
+  }
+  stage.addEventListener('click', e => {
+    const slot = e.target.closest('.polaroid');
+    if (slot) show(+slot.dataset.index);
+  });
+  box.querySelector('.life-prev').addEventListener('click', () => { cursor = (cursor - 1 + browse.length) % browse.length; render(); });
+  box.querySelector('.life-next').addEventListener('click', () => { cursor = (cursor + 1) % browse.length; render(); });
+  box.querySelector('.life-x').addEventListener('click', hide);
+  box.addEventListener('click', e => { if (e.target === box) hide(); });
+  addEventListener('keydown', e => {
+    if (!open) return;
+    if (e.key === 'Escape') hide();
+    else if (e.key === 'ArrowLeft') { cursor = (cursor - 1 + browse.length) % browse.length; render(); }
+    else if (e.key === 'ArrowRight') { cursor = (cursor + 1) % browse.length; render(); }
+  });
 })();
 
 /* ---------- subtle 3D tilt on project cards ---------- */

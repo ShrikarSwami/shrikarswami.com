@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Swami;Shrikar;;;
+FN:Shrikar Swami
+EMAIL;TYPE=INTERNET:shrikarswami@live.com
+URL;TYPE=SITE:https://shrikarswami.com/
+URL;TYPE=LinkedIn:https://linkedin.com/in/shrikarswami
+ORG:Stevens Institute of Technology
+TITLE:Computer Science
+NOTE:AI Research Intern at AuresTech. Robotics Engineer Intern at Enver Studios.
+END:VCARD
